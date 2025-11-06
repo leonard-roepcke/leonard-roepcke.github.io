@@ -1,158 +1,426 @@
-```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Leonard develops</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0a0a0a, #1b1b1b);
-      color: #f0f0f0;
-    }
-    header {
-      text-align: center;
-      padding: 3rem 1rem;
-    }
-    header h1 {
-      font-size: 2.5rem;
-      margin: 0;
-      color: #fff;
-    }
-    header p {
-      color: #aaa;
-      font-size: 1.2rem;
-    }
-    section {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    h2 {
-      border-left: 4px solid #4fc3f7;
-      padding-left: 0.5rem;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    .card {
-      background: #141414;
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 0 20px rgba(79,195,247,0.4);
-    }
-    .card h3 {
-      margin-top: 0;
-      color: #4fc3f7;
-    }
-    .card p {
-      color: #ccc;
-      font-size: 0.95rem;
-      line-height: 1.4;
-    }
-    .lang {
-      margin-top: 1rem;
-      font-size: 0.85rem;
-      color: #888;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      color: #666;
-      font-size: 0.9rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max Mustermann - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #a0a0a0;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s;
+            animation-fill-mode: both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s;
+            animation-fill-mode: both;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(20, 20, 20, 0.8);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .skill-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .project-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #a0a0a0;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 10px;
+            color: #e0e0e0;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        footer {
+            background: rgba(20, 20, 20, 0.8);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 5rem;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #667eea;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+            color: #764ba2;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Leonard develops</h1>
-    <p>hi, be happy and code &lt;3</p>
-  </header>
+    <header>
+        <nav>
+            <div class="logo gradient-text">leonard-roepcke</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Über mich</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projekte</a></li>
+                <li><a href="#contact">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <section>
-    <h2>About Me</h2>
-    <p>
-      I'm currently in school, exploring computer science and electronics.  
-      I enjoy learning how to implement complex Python algorithms and love designing elegant and functional solutions.  
-      My main interests include algorithm optimization, AI experiments, and visualization projects that connect logic with creativity.  
-      I often code between 4–7am — it's when I do my best work.
-    </p>
-  </section>
+    <section id="home" class="hero">
+        <h1>Hallo, ich bin <span class="gradient-text">Leonard</span></h1>
+        <p>Computer Science & Electronics Student | Python Enthusiast</p>
+        <a href="#contact" class="cta-button">Kontaktiere mich</a>
+    </section>
 
-  <section>
-    <h2>Projects</h2>
-    <div class="card-grid">
+    <section id="about">
+        <h2><span class="gradient-text">Über mich</span></h2>
+        <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; color: #a0a0a0;">
+            <p>Ich bin aktuell Student im Bereich Informatik und Elektronik und erkunde mit Begeisterung die Welt der Programmierung. Mein Fokus liegt auf Python und der Entwicklung komplexerer Algorithmen. Ich liebe es, an Coding-Projekten zu arbeiten und lerne ständig neue Technologien kennen.</p>
+        </div>
+    </section>
 
-      <div class="card">
-        <h3>Knowledge-Archive</h3>
-        <p>
-          A central archive for mathematical, informatics, and natural science concepts.
-          It contains structured notes, formulas, code snippets, and theoretical insights written in TeX.
-        </p>
-        <div class="lang">Language: TeX</div>
-      </div>
+    <section id="skills">
+        <h2><span class="gradient-text">Meine Skills</span></h2>
+        <div class="skills-grid">
+            <div class="skill-card">
+                <h3>Python Development</h3>
+                <p>Python, Algorithmen, Datenstrukturen - Entwicklung komplexer Python-Programme und Implementierung effizienter Algorithmen.</p>
+            </div>
+            <div class="skill-card">
+                <h3>Web Development</h3>
+                <p>JavaScript, HTML, CSS, TypeScript - Erstellung moderner Webanwendungen und interaktiver Benutzeroberflächen.</p>
+            </div>
+            <div class="skill-card">
+                <h3>Computer Science</h3>
+                <p>Informatik-Grundlagen, Elektronik, Logik-Gates - Verständnis für grundlegende Konzepte der Computerwissenschaft und Hardware.</p>
+            </div>
+            <div class="skill-card">
+                <h3>Tools & Technologies</h3>
+                <p>Git/GitHub, LaTeX, Java - Versionskontrolle, wissenschaftliches Schreiben und objektorientierte Programmierung.</p>
+            </div>
+        </div>
+    </section>
 
-      <div class="card">
-        <h3>Simple-AI</h3>
-        <p>
-          A minimal Python project that evolves simple neural-like structures using mutation and selection — no libraries, just pure console-based evolutionary learning.
-        </p>
-        <div class="lang">Language: Python</div>
-      </div>
+    <section id="projects">
+        <h2><span class="gradient-text">Projekte</span></h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Knowledge-Archive</h3>
+                <p>Ein zentrales Wissensarchiv für mathematische, informatische und naturwissenschaftliche Konzepte mit strukturierten Notizen und Formelsammlungen.</p>
+            </div>
+            <div class="project-card">
+                <h3>Boid Swarm Simulation</h3>
+                <p>Eine Python/JavaScript Simulation, die Schwarmintelligenz visualisiert - mit Alignment, Cohesion und Separation Algorithmen.</p>
+            </div>
+            <div class="project-card">
+                <h3>Simple AI Evolution</h3>
+                <p>Ein minimales Python-Projekt über evolutionäres Lernen mit natürlicher Selektion - ohne Matrizen, rein mit Mutationen.</p>
+            </div>
+            <div class="project-card">
+                <h3>IC World App</h3>
+                <p>Eine TypeScript-App zum Suchen und Erkunden von Integrierten Schaltkreisen (ICs) mit ihren Spezifikationen.</p>
+            </div>
+            <div class="project-card">
+                <h3>XOR Cipher Tool</h3>
+                <p>Ein Java-Konsolenprogramm, das Texte mit XOR-Verschlüsselung ohne externe Libraries verschlüsselt.</p>
+            </div>
+            <div class="project-card">
+                <h3>Personal Diary App</h3>
+                <p>Eine Python-App zur Erstellung und Verwaltung persönlicher Tagebucheinträge.</p>
+            </div>
+        </div>
+    </section>
 
-      <div class="card">
-        <h3>XOR-Cipher</h3>
-        <p>
-          A console-based Java program implementing XOR encryption without relying on external libraries.
-          A compact experiment in classical cryptography fundamentals.
-        </p>
-        <div class="lang">Language: Java</div>
-      </div>
+    <section id="contact">
+        <h2><span class="gradient-text">Kontakt</span></h2>
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Nachricht</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            <button type="submit">Nachricht senden</button>
+        </form>
+    </section>
 
-      <div class="card">
-        <h3>Boid-Swarm</h3>
-        <p>
-          A Python-based boid simulation visualizing flocking behavior using simple motion rules such as alignment, cohesion, and separation.
-          Each boid is rendered as an asymmetric prism-shaped triangle.
-        </p>
-        <div class="lang">Languages: Python, HTML</div>
-      </div>
+    <footer>
+        <p>&copy; 2025 Leonard Roepcke. Alle Rechte vorbehalten.</p>
+        <div class="social-links">
+            <a href="#" title="LinkedIn">in</a>
+            <a href="#" title="GitHub">gh</a>
+            <a href="#" title="Twitter">tw</a>
+        </div>
+    </footer>
 
-      <div class="card">
-        <h3>IC-World</h3>
-        <p>
-          A TypeScript project that displays all integrated circuits (ICs) with their numbers and allows searching through them.
-          Designed as a digital catalog for quick access to logic ICs.
-        </p>
-        <div class="lang">Language: TypeScript</div>
-      </div>
+    <script>
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Vielen Dank für deine Nachricht! Ich werde mich bald bei dir melden.');
+            this.reset();
+        });
 
-      <div class="card">
-        <h3>Diary</h3>
-        <p>
-          A small Python app that helps you create and manage your own diary in a simple console interface.
-          Focused on usability and minimalism.
-        </p>
-        <div class="lang">Language: Python</div>
-      </div>
-
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2025 Leonard develops | Built with passion and late-night coding</p>
-  </footer>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-```
