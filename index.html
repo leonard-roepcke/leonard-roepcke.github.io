@@ -11,12 +11,16 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #0a0a0a;
             color: #e0e0e0;
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
         .gradient-text {
@@ -26,12 +30,56 @@
             background-clip: text;
         }
 
+        .bg-orbs {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.35;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .bg-orb:nth-child(1) {
+            width: 420px;
+            height: 420px;
+            background: #667eea;
+            top: -10%;
+            left: -5%;
+        }
+
+        .bg-orb:nth-child(2) {
+            width: 360px;
+            height: 360px;
+            background: #764ba2;
+            bottom: 10%;
+            right: -8%;
+            animation-delay: -4s;
+        }
+
+        .bg-orb:nth-child(3) {
+            width: 280px;
+            height: 280px;
+            background: #5a67d8;
+            top: 45%;
+            left: 40%;
+            animation-delay: -8s;
+        }
+
         header {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            padding: 2rem 0;
-            position: sticky;
+            position: fixed;
             top: 0;
-            backdrop-filter: blur(10px);
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+            padding: 1.25rem 0;
+            backdrop-filter: blur(12px);
             z-index: 1000;
             border-bottom: 1px solid rgba(102, 126, 234, 0.2);
         }
@@ -57,14 +105,20 @@
         }
 
         nav a {
-            color: #e0e0e0;
+            color: #a0a0a0;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
             position: relative;
+            font-size: 0.95rem;
         }
 
-        nav a:hover {
-            color: #667eea;
+        nav a:hover,
+        nav a.active {
+            color: #e0e0e0;
+        }
+
+        nav a.active::after {
+            width: 100%;
         }
 
         nav a::after {
@@ -82,25 +136,99 @@
             width: 100%;
         }
 
-        .hero {
+        .scene-dots {
+            position: fixed;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .scene-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            background: transparent;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        .scene-dot.active {
+            background: #667eea;
+            border-color: #667eea;
+            transform: scale(1.3);
+        }
+
+        .scene-dot:hover {
+            border-color: #764ba2;
+        }
+
+        #viewport {
+            position: relative;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .scene {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 6rem 2rem 3rem;
+            opacity: 0;
+            pointer-events: none;
+            will-change: opacity, transform;
+        }
+
+        .scene-inner {
             max-width: 1200px;
+            width: 100%;
             margin: 0 auto;
-            padding: 8rem 2rem;
+        }
+
+        #skills .scene-inner,
+        #projects .scene-inner {
+            max-height: calc(100vh - 6rem);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(102, 126, 234, 0.4) transparent;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 2.5rem;
             text-align: center;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 1s ease;
+        #home {
+            text-align: center;
         }
 
-        .hero p {
-            font-size: 1.5rem;
+        .hero-greeting {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
             color: #a0a0a0;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease 0.2s;
-            animation-fill-mode: both;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-name {
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            font-weight: bold;
+            display: inline-block;
+            transform-origin: center center;
+        }
+
+        .hero-tagline {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: #a0a0a0;
+            margin: 1.5rem auto 2.5rem;
+            max-width: 600px;
         }
 
         .cta-button {
@@ -111,9 +239,7 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: bold;
-            transition: all 0.3s ease;
-            animation: fadeInUp 1s ease 0.4s;
-            animation-fill-mode: both;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
 
@@ -122,305 +248,613 @@
             box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
         }
 
-        section {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 5rem 2rem;
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #666;
+            font-size: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            animation: bounce 2s ease infinite;
         }
 
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+        .scroll-hint span {
+            width: 1px;
+            height: 30px;
+            background: linear-gradient(to bottom, #667eea, transparent);
+        }
+
+        .about-text {
+            max-width: 750px;
+            margin: 0 auto;
             text-align: center;
+            font-size: 1.15rem;
+            color: #a0a0a0;
+            line-height: 1.8;
+        }
+
+        .about-highlight {
+            color: #e0e0e0;
+            font-weight: 500;
         }
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
         }
 
         .skill-card {
-            background: rgba(20, 20, 20, 0.8);
-            padding: 2rem;
+            background: rgba(20, 20, 20, 0.85);
+            padding: 1.75rem;
             border-radius: 15px;
             border: 1px solid rgba(102, 126, 234, 0.2);
-            transition: all 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .skill-card:hover {
-            transform: translateY(-10px);
             border-color: rgba(102, 126, 234, 0.5);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
         }
 
         .skill-card h3 {
             color: #667eea;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+
+        .skill-card p {
+            color: #a0a0a0;
+            font-size: 0.95rem;
             margin-bottom: 1rem;
-            font-size: 1.5rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            background: rgba(102, 126, 234, 0.15);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            color: #b0b8f0;
         }
 
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .project-card {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-            padding: 2rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+            padding: 1.75rem;
             border-radius: 15px;
             border: 1px solid rgba(102, 126, 234, 0.2);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .project-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
         }
 
         .project-card h3 {
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
         }
 
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
+        .project-card p {
             color: #a0a0a0;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
         }
 
-        input, textarea {
-            width: 100%;
-            padding: 1rem;
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid rgba(102, 126, 234, 0.2);
-            border-radius: 10px;
-            color: #e0e0e0;
-            font-family: inherit;
-            transition: all 0.3s ease;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        button {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
-        }
-
-        footer {
-            background: rgba(20, 20, 20, 0.8);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 5rem;
-            border-top: 1px solid rgba(102, 126, 234, 0.2);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1rem;
-        }
-
-        .social-links a {
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
             color: #667eea;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
 
-        .social-links a:hover {
-            transform: scale(1.2);
+        .project-link:hover {
             color: #764ba2;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-content {
+            text-align: center;
+        }
+
+        .contact-intro {
+            color: #a0a0a0;
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-email {
+            display: inline-block;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 600;
+            text-decoration: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-email:hover {
+            transform: scale(1.05);
+        }
+
+        .contact-github {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-github:hover {
+            color: #667eea;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.85rem;
+            color: #666;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+            pointer-events: auto;
+        }
+
+        footer a:hover {
+            color: #764ba2;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -20px) scale(1.05); }
+            66% { transform: translate(-20px, 15px) scale(0.95); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.2rem;
-            }
-
             nav ul {
-                gap: 1rem;
+                gap: 0.75rem;
             }
 
-            h2 {
-                font-size: 2rem;
+            nav a {
+                font-size: 0.8rem;
+            }
+
+            .scene-dots {
+                right: 0.75rem;
+            }
+
+            .scene {
+                padding: 5rem 1.25rem 4rem;
+            }
+
+            .projects-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html, body {
+                overflow: auto;
+                height: auto;
+            }
+
+            .bg-orb {
+                animation: none;
+            }
+
+            .scroll-hint,
+            .scene-dots {
+                display: none;
+            }
+
+            .scene {
+                position: relative;
+                inset: auto;
+                opacity: 1 !important;
+                pointer-events: auto !important;
+                transform: none !important;
+                min-height: auto;
+                padding: 4rem 2rem;
+            }
+
+            #home {
+                min-height: 80vh;
+            }
+
+            footer {
+                position: relative;
+                padding: 2rem;
             }
         }
     </style>
 </head>
 <body>
+    <div class="bg-orbs" aria-hidden="true">
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+    </div>
+
     <header>
         <nav>
             <div class="logo gradient-text">leonard-roepcke</div>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">Über mich</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projekte</a></li>
-                <li><a href="#contact">Kontakt</a></li>
+                <li><a href="#home" data-scene="0">Home</a></li>
+                <li><a href="#about" data-scene="1">Über mich</a></li>
+                <li><a href="#skills" data-scene="2">Skills</a></li>
+                <li><a href="#projects" data-scene="3">Projekte</a></li>
+                <li><a href="#contact" data-scene="4">Kontakt</a></li>
             </ul>
         </nav>
     </header>
 
-    <section id="home" class="hero">
-        <h1>Hallo, ich bin <span class="gradient-text">Leonard</span></h1>
-        <p>Computer Science & Electronics Student | Python Enthusiast</p>
-        <a href="#contact" class="cta-button">Kontaktiere mich</a>
-    </section>
+    <div class="scene-dots" aria-label="Szenen-Navigation">
+        <button class="scene-dot active" data-scene="0" aria-label="Home"></button>
+        <button class="scene-dot" data-scene="1" aria-label="Über mich"></button>
+        <button class="scene-dot" data-scene="2" aria-label="Skills"></button>
+        <button class="scene-dot" data-scene="3" aria-label="Projekte"></button>
+        <button class="scene-dot" data-scene="4" aria-label="Kontakt"></button>
+    </div>
 
-    <section id="about">
-        <h2><span class="gradient-text">Über mich</span></h2>
-        <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; color: #a0a0a0;">
-            <p>Ich bin aktuell Student im Bereich Informatik und Elektronik und erkunde mit Begeisterung die Welt der Programmierung. Mein Fokus liegt auf Python und der Entwicklung komplexerer Algorithmen. Ich liebe es, an Coding-Projekten zu arbeiten und lerne ständig neue Technologien kennen.</p>
-        </div>
-    </section>
+    <main id="viewport">
+        <section class="scene" id="home" data-index="0">
+            <div class="scene-inner">
+                <p class="hero-greeting">Hallo, ich bin</p>
+                <h1><span class="hero-name gradient-text" id="heroName">Leonard</span></h1>
+                <p class="hero-tagline" id="heroTagline">Informatik- &amp; Elektronik-Student · Python &amp; Algorithmen</p>
+                <a href="mailto:leonard@roepcke.me" class="cta-button" id="heroCta">Kontaktiere mich</a>
+            </div>
+            <div class="scroll-hint" id="scrollHint">Scroll<span aria-hidden="true"></span></div>
+        </section>
 
-    <section id="skills">
-        <h2><span class="gradient-text">Meine Skills</span></h2>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <h3>Python Development</h3>
-                <p>Python, Algorithmen, Datenstrukturen - Entwicklung komplexer Python-Programme und Implementierung effizienter Algorithmen.</p>
+        <section class="scene" id="about" data-index="1">
+            <div class="scene-inner">
+                <h2><span class="gradient-text">Über mich</span></h2>
+                <p class="about-text" id="aboutText">
+                    Ich studiere <span class="about-highlight">Informatik und Elektronik</span> und lerne am liebsten durch eigene Projekte —
+                    von <span class="about-highlight">Schwarm-Simulationen</span> und evolutionären Algorithmen bis zu einer
+                    <span class="about-highlight">CPU aus Logik-Gates</span>.
+                    Algorithmen und deren Optimierung finde ich besonders spannend; genau dort verbinde ich
+                    theoretisches CS-Wissen mit praktischem Code.
+                </p>
             </div>
-            <div class="skill-card">
-                <h3>Web Development</h3>
-                <p>JavaScript, HTML, CSS, TypeScript - Erstellung moderner Webanwendungen und interaktiver Benutzeroberflächen.</p>
-            </div>
-            <div class="skill-card">
-                <h3>Computer Science</h3>
-                <p>Informatik-Grundlagen, Elektronik, Logik-Gates - Verständnis für grundlegende Konzepte der Computerwissenschaft und Hardware.</p>
-            </div>
-            <div class="skill-card">
-                <h3>Tools & Technologies</h3>
-                <p>Git/GitHub, LaTeX, Java - Versionskontrolle, wissenschaftliches Schreiben und objektorientierte Programmierung.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="projects">
-        <h2><span class="gradient-text">Projekte</span></h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <h3>Knowledge-Archive</h3>
-                <p>Ein zentrales Wissensarchiv für mathematische, informatische und naturwissenschaftliche Konzepte mit strukturierten Notizen und Formelsammlungen.</p>
+        <section class="scene" id="skills" data-index="2">
+            <div class="scene-inner">
+                <h2><span class="gradient-text">Meine Skills</span></h2>
+                <div class="skills-grid">
+                    <div class="skill-card" data-stagger="0">
+                        <h3>Python &amp; Algorithmen</h3>
+                        <p>Komplexe Programme, Simulationen und klassische Algorithmen — von Sortierung bis evolutionärem Lernen.</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">pygame</span>
+                            <span class="skill-tag">K-Means</span>
+                            <span class="skill-tag">Datenstrukturen</span>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-stagger="1">
+                        <h3>Web &amp; Apps</h3>
+                        <p>Moderne Web-Apps und mobile Projekte mit TypeScript — von interaktiven UIs bis zu datenbankgestützten Tools.</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">Next.js</span>
+                            <span class="skill-tag">Tailwind</span>
+                            <span class="skill-tag">React Native</span>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-stagger="2">
+                        <h3>Informatik &amp; Hardware</h3>
+                        <p>Verständnis von CS-Grundlagen und Elektronik — Logik-Gates, CPU-Simulation und Embedded-Projekte.</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Logik-Gates</span>
+                            <span class="skill-tag">CPU-Simulation</span>
+                            <span class="skill-tag">Elektronik</span>
+                            <span class="skill-tag">Arduino</span>
+                        </div>
+                    </div>
+                    <div class="skill-card" data-stagger="3">
+                        <h3>Tools &amp; Wissen</h3>
+                        <p>Versionskontrolle, wissenschaftliches Dokumentieren und solide Programmiergrundlagen in Java.</p>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Git/GitHub</span>
+                            <span class="skill-tag">LaTeX</span>
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">Supabase</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="project-card">
-                <h3>Boid Swarm Simulation</h3>
-                <p>Eine Python/JavaScript Simulation, die Schwarmintelligenz visualisiert - mit Alignment, Cohesion und Separation Algorithmen.</p>
-            </div>
-            <div class="project-card">
-                <h3>Simple AI Evolution</h3>
-                <p>Ein minimales Python-Projekt über evolutionäres Lernen mit natürlicher Selektion - ohne Matrizen, rein mit Mutationen.</p>
-            </div>
-            <div class="project-card">
-                <h3>IC World App</h3>
-                <p>Eine TypeScript-App zum Suchen und Erkunden von Integrierten Schaltkreisen (ICs) mit ihren Spezifikationen.</p>
-            </div>
-            <div class="project-card">
-                <h3>XOR Cipher Tool</h3>
-                <p>Ein Java-Konsolenprogramm, das Texte mit XOR-Verschlüsselung ohne externe Libraries verschlüsselt.</p>
-            </div>
-            <div class="project-card">
-                <h3>Personal Diary App</h3>
-                <p>Eine Python-App zur Erstellung und Verwaltung persönlicher Tagebucheinträge.</p>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="contact">
-        <h2><span class="gradient-text">Kontakt</span></h2>
-        <form class="contact-form">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
+        <section class="scene" id="projects" data-index="3">
+            <div class="scene-inner">
+                <h2><span class="gradient-text">Projekte</span></h2>
+                <div class="projects-grid">
+                    <div class="project-card" data-stagger="0">
+                        <h3>Knowledge-Archive</h3>
+                        <p>Zentrales Wissensarchiv für Mathe, Informatik und Naturwissenschaften mit strukturierten Notizen und Formeln.</p>
+                        <div class="project-tags">
+                            <span class="skill-tag">LaTeX</span>
+                            <span class="skill-tag">Dokumentation</span>
+                        </div>
+                        <a href="https://leonard-roepcke.github.io/Knowledge-Archive/main_docs/central_document/central_document.pdf" class="project-link" target="_blank" rel="noopener">Archiv ansehen →</a>
+                    </div>
+                    <div class="project-card" data-stagger="1">
+                        <h3>Boid Swarm Simulation</h3>
+                        <p>Schwarmintelligenz visualisiert mit Alignment, Cohesion und Separation — jedes Boid als prismenförmiges Polygon.</p>
+                        <div class="project-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">pygame</span>
+                        </div>
+                        <a href="https://github.com/leonard-roepcke/boid_swarm" class="project-link" target="_blank" rel="noopener">GitHub →</a>
+                    </div>
+                    <div class="project-card" data-stagger="2">
+                        <h3>Simple AI Evolution</h3>
+                        <p>Evolutionäres Lernen durch Mutation und Selektion — ohne Matrizen oder externe Libraries, bewusst minimal gehalten.</p>
+                        <div class="project-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Evolution</span>
+                        </div>
+                        <a href="https://github.com/leonard-roepcke/simple-ai" class="project-link" target="_blank" rel="noopener">GitHub →</a>
+                    </div>
+                    <div class="project-card" data-stagger="3">
+                        <h3>IC World</h3>
+                        <p>Such-App für Integrierte Schaltkreise mit Spezifikationen — gebaut, um ICs schnell nachschlagen zu können.</p>
+                        <div class="project-tags">
+                            <span class="skill-tag">Next.js</span>
+                            <span class="skill-tag">Supabase</span>
+                        </div>
+                        <a href="https://icworld.vercel.app" class="project-link" target="_blank" rel="noopener">Live Demo →</a>
+                    </div>
+                    <div class="project-card" data-stagger="4">
+                        <h3>CPU (Logik-Gates)</h3>
+                        <p>Eine CPU-Simulation in Python — vom Logik-Gate bis zur funktionierenden Recheneinheit.</p>
+                        <div class="project-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">Hardware</span>
+                        </div>
+                        <a href="https://github.com/leonard-roepcke/CPU" class="project-link" target="_blank" rel="noopener">GitHub →</a>
+                    </div>
+                    <div class="project-card" data-stagger="5">
+                        <h3>Enrico's Journey</h3>
+                        <p>Eine Next.js-Website mit Tailwind — Content über JSON/Markdown, gehostet auf Vercel und GitHub Pages.</p>
+                        <div class="project-tags">
+                            <span class="skill-tag">Next.js</span>
+                            <span class="skill-tag">Tailwind</span>
+                        </div>
+                        <a href="https://leonard-roepcke.github.io/enricos-journey/" class="project-link" target="_blank" rel="noopener">Live Demo →</a>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="email">E-Mail</label>
-                <input type="email" id="email" name="email" required>
+        </section>
+
+        <section class="scene" id="contact" data-index="4">
+            <div class="scene-inner contact-content">
+                <h2><span class="gradient-text">Kontakt</span></h2>
+                <p class="contact-intro">Schreib mir gerne eine E-Mail — ich freue mich über Feedback, Fragen oder Zusammenarbeit.</p>
+                <a href="mailto:leonard@roepcke.me" class="contact-email">leonard@roepcke.me</a>
+                <br>
+                <a href="https://github.com/leonard-roepcke" class="contact-github" target="_blank" rel="noopener">github.com/leonard-roepcke</a>
             </div>
-            <div class="form-group">
-                <label for="message">Nachricht</label>
-                <textarea id="message" name="message" required></textarea>
-            </div>
-            <button type="submit">Nachricht senden</button>
-        </form>
-    </section>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2025 Leonard Roepcke. Alle Rechte vorbehalten.</p>
-        <div class="social-links">
-            <a href="#" title="LinkedIn">in</a>
-            <a href="#" title="GitHub">gh</a>
-            <a href="#" title="Twitter">tw</a>
-        </div>
+        &copy; 2026 Leonard Röpcke · <a href="https://github.com/leonard-roepcke" target="_blank" rel="noopener">GitHub</a>
     </footer>
 
     <script>
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Vielen Dank für deine Nachricht! Ich werde mich bald bei dir melden.');
-            this.reset();
-        });
+        const SCENE_COUNT = 5;
+        const LERP = 0.09;
+        const SCROLL_SENSITIVITY = 0.0018;
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        let targetProgress = 0;
+        let currentProgress = 0;
+        let touchStartY = 0;
+        let isTouching = false;
+
+        const scenes = document.querySelectorAll('.scene');
+        const navLinks = document.querySelectorAll('nav a[data-scene]');
+        const dots = document.querySelectorAll('.scene-dot');
+        const heroName = document.getElementById('heroName');
+        const heroTagline = document.getElementById('heroTagline');
+        const heroCta = document.getElementById('heroCta');
+        const scrollHint = document.getElementById('scrollHint');
+        const aboutText = document.getElementById('aboutText');
+
+        function clamp(val, min, max) {
+            return Math.min(max, Math.max(min, val));
+        }
+
+        function getSceneOpacity(index, progress) {
+            const d = progress - index;
+            if (Math.abs(d) >= 1) return 0;
+            if (d >= 0) return 1 - d;
+            return 1 + d;
+        }
+
+        function getEnterProgress(index, progress) {
+            if (index === 0) return clamp(progress, 0, 1);
+            return clamp(progress - (index - 1), 0, 1);
+        }
+
+        function updateScenes() {
+            const activeIndex = Math.round(currentProgress);
+
+            scenes.forEach((scene, i) => {
+                const opacity = getSceneOpacity(i, currentProgress);
+                const enter = getEnterProgress(i, currentProgress);
+                let transform = '';
+
+                if (i === 1) {
+                    const slide = (1 - enter) * -60;
+                    transform = `translateX(${slide}px)`;
+                    aboutText.style.opacity = enter;
+                }
+
+                if (i === 2 || i === 3) {
+                    scene.querySelectorAll('[data-stagger]').forEach(el => {
+                        const stagger = parseInt(el.dataset.stagger, 10);
+                        const cardEnter = clamp((enter - stagger * 0.12) * 2.5, 0, 1);
+                        el.style.opacity = cardEnter;
+                        el.style.transform = `translateY(${(1 - cardEnter) * 40}px) rotateX(${(1 - cardEnter) * 8}deg)`;
                     });
                 }
+
+                if (i === 4) {
+                    const fade = clamp((enter - 0.2) * 1.5, 0, 1);
+                    scene.querySelector('.contact-intro').style.opacity = fade;
+                    scene.querySelector('.contact-email').style.opacity = fade;
+                    scene.querySelector('.contact-email').style.transform = `scale(${0.9 + fade * 0.1})`;
+                    scene.querySelector('.contact-github').style.opacity = clamp((enter - 0.4) * 2, 0, 1);
+                }
+
+                scene.style.opacity = opacity;
+                scene.style.transform = transform;
+                scene.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none';
             });
-        });
+
+            const heroBlend = clamp(currentProgress, 0, 1);
+            heroName.style.transform = `scale(${1 + heroBlend * 0.45})`;
+            heroTagline.style.opacity = 1 - heroBlend * 1.5;
+            heroCta.style.opacity = 1 - heroBlend * 1.5;
+            scrollHint.style.opacity = currentProgress < 0.3 ? 1 - currentProgress * 3 : 0;
+
+            navLinks.forEach(link => {
+                link.classList.toggle('active', parseInt(link.dataset.scene, 10) === activeIndex);
+            });
+
+            dots.forEach(dot => {
+                dot.classList.toggle('active', parseInt(dot.dataset.scene, 10) === activeIndex);
+            });
+        }
+
+        function tick() {
+            currentProgress += (targetProgress - currentProgress) * LERP;
+            if (Math.abs(targetProgress - currentProgress) < 0.001) {
+                currentProgress = targetProgress;
+            }
+            updateScenes();
+            requestAnimationFrame(tick);
+        }
+
+        function goToScene(index) {
+            targetProgress = clamp(index, 0, SCENE_COUNT - 1);
+        }
+
+        function canScrollInner(deltaY) {
+            const activeScene = scenes[Math.round(currentProgress)];
+            const inner = activeScene?.querySelector('.scene-inner');
+            if (!inner || inner.scrollHeight <= inner.clientHeight + 1) return false;
+            if (deltaY > 0 && inner.scrollTop + inner.clientHeight < inner.scrollHeight - 1) return true;
+            if (deltaY < 0 && inner.scrollTop > 1) return true;
+            return false;
+        }
+
+        if (!reducedMotion) {
+            window.addEventListener('wheel', (e) => {
+                if (canScrollInner(e.deltaY)) return;
+                e.preventDefault();
+                targetProgress = clamp(targetProgress + e.deltaY * SCROLL_SENSITIVITY, 0, SCENE_COUNT - 1);
+            }, { passive: false });
+
+            window.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+                isTouching = true;
+            }, { passive: true });
+
+            window.addEventListener('touchmove', (e) => {
+                if (!isTouching) return;
+                e.preventDefault();
+                const delta = touchStartY - e.touches[0].clientY;
+                touchStartY = e.touches[0].clientY;
+                targetProgress = clamp(targetProgress + delta * SCROLL_SENSITIVITY * 3, 0, SCENE_COUNT - 1);
+            }, { passive: false });
+
+            window.addEventListener('touchend', () => {
+                isTouching = false;
+            }, { passive: true });
+
+            document.querySelectorAll('a[data-scene], .scene-dot').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    if (el.tagName === 'A') e.preventDefault();
+                    goToScene(parseInt(el.dataset.scene, 10));
+                });
+            });
+
+            updateScenes();
+            requestAnimationFrame(tick);
+        } else {
+            document.querySelectorAll('a[data-scene]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(link.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'auto', block: 'start' });
+                    }
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.querySelectorAll('[data-stagger]').forEach(el => {
+                            el.style.opacity = 1;
+                            el.style.transform = 'none';
+                        });
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            scenes.forEach(scene => observer.observe(scene));
+        }
     </script>
 </body>
 </html>
