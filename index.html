@@ -46,15 +46,11 @@
             background-clip: text;
         }
 
-        .bg-grid,
-        .scroll-decor {
+        .bg-grid {
             position: fixed;
             inset: 0;
             pointer-events: none;
             overflow: hidden;
-        }
-
-        .bg-grid {
             z-index: -1;
             background: #0a0a0a;
         }
@@ -67,29 +63,26 @@
                 linear-gradient(rgba(102, 126, 234, 0.055) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(102, 126, 234, 0.055) 1px, transparent 1px);
             background-size: 52px 52px;
-            mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.35) 15%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.35) 85%, transparent 100%);
-            -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.35) 15%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.35) 85%, transparent 100%);
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 50%, rgba(0, 0, 0, 0.25) 100%);
+            -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.45) 50%, rgba(0, 0, 0, 0.25) 100%);
         }
 
-        .bg-grid::after {
-            content: '';
+        .page-decor {
             position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 80% 45% at 50% 0%, rgba(102, 126, 234, 0.09) 0%, transparent 60%),
-                radial-gradient(ellipse 50% 35% at 100% 60%, rgba(118, 75, 162, 0.06) 0%, transparent 55%),
-                radial-gradient(ellipse 45% 30% at 0% 70%, rgba(102, 126, 234, 0.05) 0%, transparent 50%),
-                linear-gradient(180deg, rgba(118, 75, 162, 0.04) 0%, transparent 30%, transparent 70%, rgba(102, 126, 234, 0.03) 100%);
-        }
-
-        .scroll-decor {
+            top: 0;
+            left: 0;
+            right: 0;
+            min-height: 100%;
+            pointer-events: none;
             z-index: 0;
+            overflow: hidden;
         }
 
         .decor-shape {
             position: absolute;
             will-change: transform;
-            opacity: 0.45;
+            opacity: 0.42;
+            transition: opacity 0.4s ease;
         }
 
         .decor-shape--ring {
@@ -129,145 +122,16 @@
             border-radius: 50%;
         }
 
-        .decor-left .decor-shape--ring:nth-child(1) {
-            width: 140px;
-            height: 140px;
-            top: 18%;
-            left: 4%;
-        }
+        .decor-shape--ring { width: 130px; height: 130px; }
+        .decor-shape--ring-sm { width: 58px; height: 58px; }
+        .decor-shape--arc { width: 76px; height: 76px; }
+        .decor-shape--block { width: 18px; height: 18px; }
+        .decor-shape--line { width: 1px; height: 160px; }
 
-        .decor-left .decor-shape--line:nth-child(2) {
-            height: 180px;
-            top: 32%;
-            left: 9%;
-        }
-
-        .decor-left .decor-shape--diamond:nth-child(3) {
-            top: 58%;
-            left: 6%;
-        }
-
-        .decor-left .decor-shape--arc:nth-child(4) {
-            width: 90px;
-            height: 90px;
-            top: 72%;
-            left: 3%;
-        }
-
-        .decor-right .decor-shape--ring:nth-child(1) {
-            width: 110px;
-            height: 110px;
-            top: 12%;
-            right: 5%;
-        }
-
-        .decor-right .decor-shape--line:nth-child(2) {
-            height: 220px;
-            top: 28%;
-            right: 8%;
-        }
-
-        .decor-right .decor-shape--diamond:nth-child(3) {
-            top: 52%;
-            right: 4%;
-        }
-
-        .decor-right .decor-shape--arc:nth-child(4) {
-            width: 70px;
-            height: 70px;
-            top: 68%;
-            right: 7%;
-        }
-
-        .decor-left .decor-shape--block:nth-child(5) {
-            width: 18px;
-            height: 18px;
-            top: 42%;
-            left: 2%;
-        }
-
-        .decor-left .decor-shape--ring-sm:nth-child(6) {
-            width: 55px;
-            height: 55px;
-            top: 88%;
-            left: 5%;
-        }
-
-        .decor-left .decor-shape--diamond:nth-child(7) {
-            top: 95%;
-            left: 10%;
-        }
-
-        .decor-left .decor-shape--line:nth-child(8) {
-            height: 140px;
-            top: 78%;
-            left: 3%;
-        }
-
-        .decor-right .decor-shape--block:nth-child(5) {
-            width: 22px;
-            height: 22px;
-            top: 38%;
-            right: 2%;
-        }
-
-        .decor-right .decor-shape--ring-sm:nth-child(6) {
-            width: 65px;
-            height: 65px;
-            top: 82%;
-            right: 4%;
-        }
-
-        .decor-right .decor-shape--arc:nth-child(7) {
-            width: 50px;
-            height: 50px;
-            top: 92%;
-            right: 9%;
-        }
-
-        .decor-right .decor-shape--diamond:nth-child(8) {
-            top: 48%;
-            right: 1%;
-        }
-
-        .decor-mid .decor-shape--ring:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            top: 55%;
-            left: 12%;
-        }
-
-        .decor-mid .decor-shape--block:nth-child(2) {
-            width: 14px;
-            height: 14px;
-            top: 62%;
-            right: 14%;
-        }
-
-        .decor-mid .decor-shape--ring-sm:nth-child(3) {
-            width: 45px;
-            height: 45px;
-            top: 75%;
-            left: 8%;
-        }
-
-        .decor-mid .decor-shape--diamond:nth-child(4) {
-            top: 85%;
-            right: 10%;
-        }
-
-        .decor-mid .decor-shape--line:nth-child(5) {
-            height: 120px;
-            top: 68%;
-            right: 6%;
-        }
-
-        .decor-mid .decor-shape--arc:nth-child(6) {
-            width: 60px;
-            height: 60px;
-            top: 35%;
-            left: 6%;
-        }
+        .decor-shape--ring-lg { width: 150px; height: 150px; }
+        .decor-shape--arc-sm { width: 52px; height: 52px; }
+        .decor-shape--line-tall { height: 200px; }
+        .decor-shape--block-lg { width: 24px; height: 24px; }
 
         header {
             position: sticky;
@@ -653,18 +517,18 @@
                 grid-template-columns: 1fr;
             }
 
-            .scroll-decor {
-                opacity: 0.5;
+            .page-decor {
+                opacity: 0.55;
+            }
+
+            .decor-shape--hide-mobile {
+                display: none;
             }
         }
 
         @media (max-width: 900px) {
-            .scroll-decor {
-                opacity: 0.35;
-            }
-
-            .decor-mid {
-                display: none;
+            .page-decor {
+                opacity: 0.38;
             }
         }
 
@@ -682,35 +546,26 @@
 <body>
     <div class="bg-grid" aria-hidden="true"></div>
 
-    <div class="scroll-decor decor-left" aria-hidden="true">
-        <div class="decor-shape decor-shape--ring" data-parallax="0.45" data-axis="x" data-direction="-1"></div>
-        <div class="decor-shape decor-shape--line" data-parallax="0.55"></div>
-        <div class="decor-shape decor-shape--diamond" data-parallax="0.7" data-axis="x" data-direction="-1"></div>
-        <div class="decor-shape decor-shape--arc" data-parallax="0.38" data-rotate="0.15"></div>
-        <div class="decor-shape decor-shape--block" data-parallax="0.52" data-axis="x" data-direction="-1"></div>
-        <div class="decor-shape decor-shape--ring-sm" data-parallax="0.48" data-axis="x" data-direction="-1"></div>
-        <div class="decor-shape decor-shape--diamond" data-parallax="0.62" data-axis="x" data-direction="-1"></div>
-        <div class="decor-shape decor-shape--line" data-parallax="0.58"></div>
-    </div>
-
-    <div class="scroll-decor decor-right" aria-hidden="true">
-        <div class="decor-shape decor-shape--ring" data-parallax="0.42" data-axis="x" data-direction="1"></div>
-        <div class="decor-shape decor-shape--line" data-parallax="0.6"></div>
-        <div class="decor-shape decor-shape--diamond" data-parallax="0.65" data-axis="x" data-direction="1"></div>
-        <div class="decor-shape decor-shape--arc" data-parallax="0.35" data-rotate="-0.12"></div>
-        <div class="decor-shape decor-shape--block" data-parallax="0.5" data-axis="x" data-direction="1"></div>
-        <div class="decor-shape decor-shape--ring-sm" data-parallax="0.44" data-axis="x" data-direction="1"></div>
-        <div class="decor-shape decor-shape--arc" data-parallax="0.4" data-rotate="0.1"></div>
-        <div class="decor-shape decor-shape--diamond" data-parallax="0.68" data-axis="x" data-direction="1"></div>
-    </div>
-
-    <div class="scroll-decor decor-mid" aria-hidden="true">
-        <div class="decor-shape decor-shape--ring" data-parallax="0.36" data-axis="x" data-direction="-1"></div>
-        <div class="decor-shape decor-shape--block" data-parallax="0.54" data-axis="x" data-direction="1"></div>
-        <div class="decor-shape decor-shape--ring-sm" data-parallax="0.46" data-axis="x" data-direction="-1"></div>
-        <div class="decor-shape decor-shape--diamond" data-parallax="0.58" data-axis="x" data-direction="1"></div>
-        <div class="decor-shape decor-shape--line" data-parallax="0.5"></div>
-        <div class="decor-shape decor-shape--arc" data-parallax="0.42" data-rotate="-0.08"></div>
+    <div class="page-decor" aria-hidden="true">
+        <div class="decor-shape decor-shape--ring decor-shape--ring-lg" style="top: 6%; left: 4%;" data-parallax="0.12" data-float-x="14" data-float-y="20" data-float-speed="0.7" data-phase="0" data-rotate="0.08"></div>
+        <div class="decor-shape decor-shape--line decor-shape--line-tall" style="top: 14%; right: 7%;" data-parallax="0.08" data-float-x="6" data-float-y="28" data-float-speed="0.55" data-phase="1.2"></div>
+        <div class="decor-shape decor-shape--diamond" style="top: 22%; right: 3%;" data-parallax="0.15" data-float-x="18" data-float-y="14" data-float-speed="0.9" data-phase="2.4" data-mouse="0.12"></div>
+        <div class="decor-shape decor-shape--arc" style="top: 18%; left: 8%;" data-parallax="0.1" data-float-x="22" data-float-y="16" data-float-speed="0.65" data-phase="0.8" data-rotate="-0.12"></div>
+        <div class="decor-shape decor-shape--ring-sm" style="top: 30%; left: 2%;" data-parallax="0.14" data-float-x="12" data-float-y="18" data-float-speed="0.85" data-phase="3.1"></div>
+        <div class="decor-shape decor-shape--block" style="top: 36%; right: 2%;" data-parallax="0.11" data-float-x="16" data-float-y="12" data-float-speed="1.1" data-phase="1.7" data-mouse="0.1"></div>
+        <div class="decor-shape decor-shape--ring" style="top: 42%; right: 5%;" data-parallax="0.09" data-float-x="20" data-float-y="22" data-float-speed="0.6" data-phase="4.2"></div>
+        <div class="decor-shape decor-shape--line" style="top: 48%; left: 6%;" data-parallax="0.13" data-float-x="8" data-float-y="24" data-float-speed="0.75" data-phase="2.9"></div>
+        <div class="decor-shape decor-shape--diamond" style="top: 54%; left: 3%;" data-parallax="0.16" data-float-x="15" data-float-y="17" data-float-speed="1.05" data-phase="0.5" data-mouse="0.14"></div>
+        <div class="decor-shape decor-shape--arc decor-shape--arc-sm decor-shape--hide-mobile" style="top: 58%; right: 10%;" data-parallax="0.1" data-float-x="19" data-float-y="15" data-float-speed="0.8" data-phase="3.6" data-rotate="0.1"></div>
+        <div class="decor-shape decor-shape--ring-sm" style="top: 64%; right: 4%;" data-parallax="0.12" data-float-x="13" data-float-y="20" data-float-speed="0.95" data-phase="1.4"></div>
+        <div class="decor-shape decor-shape--block decor-shape--block-lg" style="top: 68%; left: 5%;" data-parallax="0.07" data-float-x="17" data-float-y="11" data-float-speed="1.15" data-phase="2.2"></div>
+        <div class="decor-shape decor-shape--ring decor-shape--hide-mobile" style="top: 74%; left: 10%;" data-parallax="0.11" data-float-x="21" data-float-y="19" data-float-speed="0.58" data-phase="4.8"></div>
+        <div class="decor-shape decor-shape--line decor-shape--line-tall" style="top: 78%; right: 6%;" data-parallax="0.09" data-float-x="7" data-float-y="26" data-float-speed="0.62" data-phase="0.3"></div>
+        <div class="decor-shape decor-shape--diamond" style="top: 82%; right: 2%;" data-parallax="0.14" data-float-x="16" data-float-y="13" data-float-speed="1.0" data-phase="3.3" data-mouse="0.11"></div>
+        <div class="decor-shape decor-shape--arc" style="top: 86%; left: 3%;" data-parallax="0.1" data-float-x="23" data-float-y="18" data-float-speed="0.72" data-phase="1.9" data-rotate="-0.09"></div>
+        <div class="decor-shape decor-shape--ring-sm decor-shape--hide-mobile" style="top: 90%; right: 8%;" data-parallax="0.13" data-float-x="11" data-float-y="16" data-float-speed="0.88" data-phase="2.7"></div>
+        <div class="decor-shape decor-shape--block" style="top: 94%; left: 7%;" data-parallax="0.08" data-float-x="14" data-float-y="10" data-float-speed="1.2" data-phase="4.5"></div>
+        <div class="decor-shape decor-shape--diamond decor-shape--hide-mobile" style="top: 96%; right: 12%;" data-parallax="0.15" data-float-x="18" data-float-y="14" data-float-speed="0.92" data-phase="0.9" data-mouse="0.13"></div>
     </div>
 
     <header>
@@ -877,8 +732,22 @@
     <script>
         const sections = document.querySelectorAll('main section[id]');
         const navLinks = document.querySelectorAll('nav a[href^="#"]');
-        const parallaxItems = document.querySelectorAll('[data-parallax]');
+        const decorShapes = document.querySelectorAll('.decor-shape[data-parallax]');
+        const pageDecor = document.querySelector('.page-decor');
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const syncDecorHeight = () => {
+            if (!pageDecor) return;
+            pageDecor.style.height = `${document.documentElement.scrollHeight}px`;
+        };
+
+        syncDecorHeight();
+        window.addEventListener('resize', syncDecorHeight);
+        window.addEventListener('load', syncDecorHeight);
+
+        if (pageDecor && typeof ResizeObserver !== 'undefined') {
+            new ResizeObserver(syncDecorHeight).observe(document.body);
+        }
 
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -901,51 +770,52 @@
 
         sections.forEach(section => observer.observe(section));
 
-        if (!prefersReducedMotion && parallaxItems.length) {
-            let scrollLoopId = null;
-            let scrollEndTimer = null;
+        if (!prefersReducedMotion && decorShapes.length) {
+            let mouseX = 0.5;
+            let mouseY = 0.5;
+            let targetMouseX = 0.5;
+            let targetMouseY = 0.5;
+            const motionStart = performance.now();
 
-            const applyParallax = () => {
+            window.addEventListener('mousemove', (event) => {
+                targetMouseX = event.clientX / window.innerWidth;
+                targetMouseY = event.clientY / window.innerHeight;
+            }, { passive: true });
+
+            const animateDecor = (time) => {
+                const elapsed = (time - motionStart) / 1000;
                 const scrollY = window.scrollY;
 
-                parallaxItems.forEach(item => {
-                    const speed = parseFloat(item.dataset.parallax) || 0.2;
-                    const axis = item.dataset.axis || 'y';
-                    const direction = parseFloat(item.dataset.direction) || 1;
-                    const rotateFactor = parseFloat(item.dataset.rotate) || 0;
-                    const y = scrollY * speed;
-                    const x = axis === 'x' ? scrollY * speed * direction : 0;
-                    const rotate = rotateFactor ? scrollY * rotateFactor : 0;
-                    const baseRotate = item.classList.contains('decor-shape--diamond') ? 45 : 0;
+                mouseX += (targetMouseX - mouseX) * 0.06;
+                mouseY += (targetMouseY - mouseY) * 0.06;
 
-                    item.style.transform = rotateFactor || baseRotate
-                        ? `translate3d(${x}px, ${y}px, 0) rotate(${baseRotate + rotate}deg)`
-                        : `translate3d(${x}px, ${y}px, 0)`;
+                decorShapes.forEach(shape => {
+                    const parallax = parseFloat(shape.dataset.parallax) || 0.1;
+                    const floatX = parseFloat(shape.dataset.floatX) || 12;
+                    const floatY = parseFloat(shape.dataset.floatY) || 16;
+                    const floatSpeed = parseFloat(shape.dataset.floatSpeed) || 0.8;
+                    const phase = parseFloat(shape.dataset.phase) || 0;
+                    const rotateSpeed = parseFloat(shape.dataset.rotate) || 0;
+                    const mouseInfluence = parseFloat(shape.dataset.mouse) || 0.06;
+
+                    const driftX = Math.sin(elapsed * floatSpeed + phase) * floatX
+                        + Math.cos(elapsed * floatSpeed * 0.62 + phase * 1.4) * (floatX * 0.45);
+                    const driftY = Math.cos(elapsed * floatSpeed * 0.88 + phase * 0.7) * floatY
+                        + Math.sin(elapsed * floatSpeed * 0.48 + phase * 1.8) * (floatY * 0.35);
+                    const parallaxY = scrollY * parallax;
+                    const parallaxX = scrollY * parallax * 0.35 * (shape.style.left ? -1 : 1);
+                    const mouseOffsetX = (mouseX - 0.5) * 50 * mouseInfluence;
+                    const mouseOffsetY = (mouseY - 0.5) * 35 * mouseInfluence;
+                    const baseRotate = shape.classList.contains('decor-shape--diamond') ? 45 : 0;
+                    const rotation = baseRotate + elapsed * rotateSpeed * 18;
+
+                    shape.style.transform = `translate3d(${parallaxX + driftX + mouseOffsetX}px, ${parallaxY + driftY + mouseOffsetY}px, 0) rotate(${rotation}deg)`;
                 });
+
+                requestAnimationFrame(animateDecor);
             };
 
-            const scrollFrame = () => {
-                applyParallax();
-                scrollLoopId = requestAnimationFrame(scrollFrame);
-            };
-
-            const startScrollMotion = () => {
-                if (scrollLoopId === null) {
-                    scrollLoopId = requestAnimationFrame(scrollFrame);
-                }
-
-                clearTimeout(scrollEndTimer);
-                scrollEndTimer = setTimeout(() => {
-                    if (scrollLoopId !== null) {
-                        cancelAnimationFrame(scrollLoopId);
-                        scrollLoopId = null;
-                    }
-                    applyParallax();
-                }, 100);
-            };
-
-            window.addEventListener('scroll', startScrollMotion, { passive: true });
-            applyParallax();
+            requestAnimationFrame(animateDecor);
         }
     </script>
 </body>
