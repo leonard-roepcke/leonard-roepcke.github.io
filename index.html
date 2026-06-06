@@ -11,9 +11,8 @@
             box-sizing: border-box;
         }
 
-        html, body {
-            height: 100%;
-            overflow: hidden;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -21,6 +20,7 @@
             background: #0a0a0a;
             color: #e0e0e0;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .gradient-text {
@@ -73,10 +73,8 @@
         }
 
         header {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
             padding: 1.25rem 0;
             backdrop-filter: blur(12px);
@@ -136,121 +134,16 @@
             width: 100%;
         }
 
-        .scene-dots {
-            position: fixed;
-            right: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .scene-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            border: 2px solid rgba(102, 126, 234, 0.5);
-            background: transparent;
-            cursor: pointer;
-            padding: 0;
-            transition: all 0.3s ease;
-        }
-
-        .scene-dot.active {
-            background: #667eea;
-            border-color: #667eea;
-            transform: scale(1.3);
-        }
-
-        .scene-dot:hover {
-            border-color: #764ba2;
-        }
-
-        #viewport {
+        main {
             position: relative;
-            height: 100%;
             z-index: 1;
         }
 
-        .scene {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 6rem 2rem 3rem;
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            will-change: opacity, transform;
-            transition: opacity 0.35s ease;
-        }
-
-        .scene.active {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
-
-        .star-transition {
-            position: fixed;
-            inset: 0;
-            z-index: 500;
-            pointer-events: none;
-            opacity: 0;
-            overflow: hidden;
-            background: radial-gradient(ellipse at center, rgba(118, 75, 162, 0.12) 0%, rgba(10, 10, 10, 0.85) 70%);
-            transition: opacity 0.2s ease;
-        }
-
-        .star-transition.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .shooting-star {
-            position: absolute;
-            height: 2px;
-            border-radius: 100px;
-            background: linear-gradient(90deg, transparent 0%, rgba(167, 139, 250, 0.3) 30%, #a78bfa 60%, #e9d5ff 100%);
-            box-shadow: 0 0 8px #a78bfa, 0 0 16px #764ba2;
-            opacity: 0;
-            transform-origin: left center;
-        }
-
-        .star-transition.active .shooting-star {
-            animation: shooting-star var(--duration, 0.7s) ease-in forwards;
-            animation-delay: var(--delay, 0s);
-        }
-
-        .shooting-star::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: #e9d5ff;
-            box-shadow: 0 0 10px #c4b5fd, 0 0 20px #764ba2;
-        }
-
-        .scene-inner {
+        section {
             max-width: 1200px;
-            width: 100%;
             margin: 0 auto;
-        }
-
-        #skills .scene-inner,
-        #projects .scene-inner {
-            max-height: calc(100vh - 6rem);
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(102, 126, 234, 0.4) transparent;
+            padding: 5rem 2rem;
+            scroll-margin-top: 5rem;
         }
 
         h2 {
@@ -260,7 +153,14 @@
         }
 
         #home {
+            min-height: calc(100vh - 5rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
+            padding-top: 3rem;
+            padding-bottom: 3rem;
         }
 
         .hero-greeting {
@@ -272,8 +172,6 @@
         .hero-name {
             font-size: clamp(3rem, 10vw, 5.5rem);
             font-weight: bold;
-            display: inline-block;
-            transform-origin: center center;
         }
 
         .hero-tagline {
@@ -298,26 +196,6 @@
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
-        }
-
-        .scroll-hint {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #666;
-            font-size: 0.85rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            animation: bounce 2s ease infinite;
-        }
-
-        .scroll-hint span {
-            width: 1px;
-            height: 30px;
-            background: linear-gradient(to bottom, #667eea, transparent);
         }
 
         .about-text {
@@ -471,22 +349,18 @@
         }
 
         footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            position: relative;
+            z-index: 1;
             text-align: center;
-            padding: 1rem;
+            padding: 2rem;
             font-size: 0.85rem;
             color: #666;
-            z-index: 1000;
-            pointer-events: none;
+            border-top: 1px solid rgba(102, 126, 234, 0.15);
         }
 
         footer a {
             color: #667eea;
             text-decoration: none;
-            pointer-events: auto;
         }
 
         footer a:hover {
@@ -499,25 +373,6 @@
             66% { transform: translate(-20px, 15px) scale(0.95); }
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(8px); }
-        }
-
-        @keyframes shooting-star {
-            0% {
-                opacity: 0;
-                transform: rotate(var(--angle, -35deg)) translateX(0) scaleX(0.3);
-            }
-            8% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: rotate(var(--angle, -35deg)) translateX(140vw) scaleX(1);
-            }
-        }
-
         @media (max-width: 768px) {
             nav ul {
                 gap: 0.75rem;
@@ -527,12 +382,8 @@
                 font-size: 0.8rem;
             }
 
-            .scene-dots {
-                right: 0.75rem;
-            }
-
-            .scene {
-                padding: 5rem 1.25rem 4rem;
+            section {
+                padding: 4rem 1.25rem;
             }
 
             .projects-grid,
@@ -542,42 +393,12 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            html, body {
-                overflow: auto;
-                height: auto;
+            html {
+                scroll-behavior: auto;
             }
 
             .bg-orb {
                 animation: none;
-            }
-
-            .scroll-hint,
-            .scene-dots {
-                display: none;
-            }
-
-            .star-transition {
-                display: none;
-            }
-
-            .scene {
-                position: relative;
-                inset: auto;
-                opacity: 1 !important;
-                visibility: visible !important;
-                pointer-events: auto !important;
-                transform: none !important;
-                min-height: auto;
-                padding: 4rem 2rem;
-            }
-
-            #home {
-                min-height: 80vh;
-            }
-
-            footer {
-                position: relative;
-                padding: 2rem;
             }
         }
     </style>
@@ -593,167 +414,146 @@
         <nav>
             <div class="logo gradient-text">leonard-roepcke</div>
             <ul>
-                <li><a href="#home" data-scene="0">Home</a></li>
-                <li><a href="#about" data-scene="1">Über mich</a></li>
-                <li><a href="#skills" data-scene="2">Skills</a></li>
-                <li><a href="#projects" data-scene="3">Projekte</a></li>
-                <li><a href="#contact" data-scene="4">Kontakt</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Über mich</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projekte</a></li>
+                <li><a href="#contact">Kontakt</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="star-transition" id="starTransition" aria-hidden="true"></div>
-
-    <div class="scene-dots" aria-label="Szenen-Navigation">
-        <button class="scene-dot active" data-scene="0" aria-label="Home"></button>
-        <button class="scene-dot" data-scene="1" aria-label="Über mich"></button>
-        <button class="scene-dot" data-scene="2" aria-label="Skills"></button>
-        <button class="scene-dot" data-scene="3" aria-label="Projekte"></button>
-        <button class="scene-dot" data-scene="4" aria-label="Kontakt"></button>
-    </div>
-
-    <main id="viewport">
-        <section class="scene active" id="home" data-index="0">
-            <div class="scene-inner">
-                <p class="hero-greeting">Hallo, ich bin</p>
-                <h1><span class="hero-name gradient-text" id="heroName">Leonard</span></h1>
-                <p class="hero-tagline" id="heroTagline">Informatik- &amp; Elektronik-Student · Python &amp; Algorithmen</p>
-                <a href="mailto:leonard@roepcke.me" class="cta-button" id="heroCta">Kontaktiere mich</a>
-            </div>
-            <div class="scroll-hint" id="scrollHint">Scroll<span aria-hidden="true"></span></div>
+    <main>
+        <section id="home">
+            <p class="hero-greeting">Hallo, ich bin</p>
+            <h1><span class="hero-name gradient-text">Leonard</span></h1>
+            <p class="hero-tagline">Informatik- &amp; Elektronik-Student · Python &amp; Algorithmen</p>
+            <a href="mailto:leonard@roepcke.me" class="cta-button">Kontaktiere mich</a>
         </section>
 
-        <section class="scene" id="about" data-index="1">
-            <div class="scene-inner">
-                <h2><span class="gradient-text">Über mich</span></h2>
-                <p class="about-text" id="aboutText">
-                    Ich studiere <span class="about-highlight">Informatik und Elektronik</span> und lerne am liebsten durch eigene Projekte —
-                    von <span class="about-highlight">Schwarm-Simulationen</span> und evolutionären Algorithmen bis zu einer
-                    <span class="about-highlight">CPU aus Logik-Gates</span>.
-                    Algorithmen und deren Optimierung finde ich besonders spannend; genau dort verbinde ich
-                    theoretisches CS-Wissen mit praktischem Code.
-                </p>
-            </div>
+        <section id="about">
+            <h2><span class="gradient-text">Über mich</span></h2>
+            <p class="about-text">
+                Ich studiere <span class="about-highlight">Informatik und Elektronik</span> und lerne am liebsten durch eigene Projekte —
+                von <span class="about-highlight">Schwarm-Simulationen</span> und evolutionären Algorithmen bis zu einer
+                <span class="about-highlight">CPU aus Logik-Gates</span>.
+                Algorithmen und deren Optimierung finde ich besonders spannend; genau dort verbinde ich
+                theoretisches CS-Wissen mit praktischem Code.
+            </p>
         </section>
 
-        <section class="scene" id="skills" data-index="2">
-            <div class="scene-inner">
-                <h2><span class="gradient-text">Meine Skills</span></h2>
-                <div class="skills-grid">
-                    <div class="skill-card" data-stagger="0">
-                        <h3>Python &amp; Algorithmen</h3>
-                        <p>Komplexe Programme, Simulationen und klassische Algorithmen — von Sortierung bis evolutionärem Lernen.</p>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">pygame</span>
-                            <span class="skill-tag">K-Means</span>
-                            <span class="skill-tag">Datenstrukturen</span>
-                        </div>
+        <section id="skills">
+            <h2><span class="gradient-text">Meine Skills</span></h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Python &amp; Algorithmen</h3>
+                    <p>Komplexe Programme, Simulationen und klassische Algorithmen — von Sortierung bis evolutionärem Lernen.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">pygame</span>
+                        <span class="skill-tag">K-Means</span>
+                        <span class="skill-tag">Datenstrukturen</span>
                     </div>
-                    <div class="skill-card" data-stagger="1">
-                        <h3>Web &amp; Apps</h3>
-                        <p>Moderne Web-Apps und mobile Projekte mit TypeScript — von interaktiven UIs bis zu datenbankgestützten Tools.</p>
-                        <div class="skill-tags">
-                            <span class="skill-tag">TypeScript</span>
-                            <span class="skill-tag">Next.js</span>
-                            <span class="skill-tag">Tailwind</span>
-                            <span class="skill-tag">React Native</span>
-                        </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Web &amp; Apps</h3>
+                    <p>Moderne Web-Apps und mobile Projekte mit TypeScript — von interaktiven UIs bis zu datenbankgestützten Tools.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">Next.js</span>
+                        <span class="skill-tag">Tailwind</span>
+                        <span class="skill-tag">React Native</span>
                     </div>
-                    <div class="skill-card" data-stagger="2">
-                        <h3>Informatik &amp; Hardware</h3>
-                        <p>Verständnis von CS-Grundlagen und Elektronik — Logik-Gates, CPU-Simulation und Embedded-Projekte.</p>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Logik-Gates</span>
-                            <span class="skill-tag">CPU-Simulation</span>
-                            <span class="skill-tag">Elektronik</span>
-                            <span class="skill-tag">Arduino</span>
-                        </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Informatik &amp; Hardware</h3>
+                    <p>Verständnis von CS-Grundlagen und Elektronik — Logik-Gates, CPU-Simulation und Embedded-Projekte.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Logik-Gates</span>
+                        <span class="skill-tag">CPU-Simulation</span>
+                        <span class="skill-tag">Elektronik</span>
+                        <span class="skill-tag">Arduino</span>
                     </div>
-                    <div class="skill-card" data-stagger="3">
-                        <h3>Tools &amp; Wissen</h3>
-                        <p>Versionskontrolle, wissenschaftliches Dokumentieren und solide Programmiergrundlagen in Java.</p>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Git/GitHub</span>
-                            <span class="skill-tag">LaTeX</span>
-                            <span class="skill-tag">Java</span>
-                            <span class="skill-tag">Supabase</span>
-                        </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Tools &amp; Wissen</h3>
+                    <p>Versionskontrolle, wissenschaftliches Dokumentieren und solide Programmiergrundlagen in Java.</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git/GitHub</span>
+                        <span class="skill-tag">LaTeX</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Supabase</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="scene" id="projects" data-index="3">
-            <div class="scene-inner">
-                <h2><span class="gradient-text">Projekte</span></h2>
-                <div class="projects-grid">
-                    <div class="project-card" data-stagger="0">
-                        <h3>Knowledge-Archive</h3>
-                        <p>Zentrales Wissensarchiv für Mathe, Informatik und Naturwissenschaften mit strukturierten Notizen und Formeln.</p>
-                        <div class="project-tags">
-                            <span class="skill-tag">LaTeX</span>
-                            <span class="skill-tag">Dokumentation</span>
-                        </div>
-                        <a href="https://leonard-roepcke.github.io/Knowledge-Archive/main_docs/central_document/central_document.pdf" class="project-link" target="_blank" rel="noopener">Archiv ansehen →</a>
+        <section id="projects">
+            <h2><span class="gradient-text">Projekte</span></h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Knowledge-Archive</h3>
+                    <p>Zentrales Wissensarchiv für Mathe, Informatik und Naturwissenschaften mit strukturierten Notizen und Formeln.</p>
+                    <div class="project-tags">
+                        <span class="skill-tag">LaTeX</span>
+                        <span class="skill-tag">Dokumentation</span>
                     </div>
-                    <div class="project-card" data-stagger="1">
-                        <h3>Boid Swarm Simulation</h3>
-                        <p>Schwarmintelligenz visualisiert mit Alignment, Cohesion und Separation — jedes Boid als prismenförmiges Polygon.</p>
-                        <div class="project-tags">
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">pygame</span>
-                        </div>
-                        <a href="https://github.com/leonard-roepcke/boid_swarm" class="project-link" target="_blank" rel="noopener">GitHub →</a>
+                    <a href="https://leonard-roepcke.github.io/Knowledge-Archive/main_docs/central_document/central_document.pdf" class="project-link" target="_blank" rel="noopener">Archiv ansehen →</a>
+                </div>
+                <div class="project-card">
+                    <h3>Boid Swarm Simulation</h3>
+                    <p>Schwarmintelligenz visualisiert mit Alignment, Cohesion und Separation — jedes Boid als prismenförmiges Polygon.</p>
+                    <div class="project-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">pygame</span>
                     </div>
-                    <div class="project-card" data-stagger="2">
-                        <h3>Simple AI Evolution</h3>
-                        <p>Evolutionäres Lernen durch Mutation und Selektion — ohne Matrizen oder externe Libraries, bewusst minimal gehalten.</p>
-                        <div class="project-tags">
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">Evolution</span>
-                        </div>
-                        <a href="https://github.com/leonard-roepcke/simple-ai" class="project-link" target="_blank" rel="noopener">GitHub →</a>
+                    <a href="https://github.com/leonard-roepcke/boid_swarm" class="project-link" target="_blank" rel="noopener">GitHub →</a>
+                </div>
+                <div class="project-card">
+                    <h3>Simple AI Evolution</h3>
+                    <p>Evolutionäres Lernen durch Mutation und Selektion — ohne Matrizen oder externe Libraries, bewusst minimal gehalten.</p>
+                    <div class="project-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Evolution</span>
                     </div>
-                    <div class="project-card" data-stagger="3">
-                        <h3>IC World</h3>
-                        <p>Such-App für Integrierte Schaltkreise mit Spezifikationen — gebaut, um ICs schnell nachschlagen zu können.</p>
-                        <div class="project-tags">
-                            <span class="skill-tag">Next.js</span>
-                            <span class="skill-tag">Supabase</span>
-                        </div>
-                        <a href="https://icworld.vercel.app" class="project-link" target="_blank" rel="noopener">Live Demo →</a>
+                    <a href="https://github.com/leonard-roepcke/simple-ai" class="project-link" target="_blank" rel="noopener">GitHub →</a>
+                </div>
+                <div class="project-card">
+                    <h3>IC World</h3>
+                    <p>Such-App für Integrierte Schaltkreise mit Spezifikationen — gebaut, um ICs schnell nachschlagen zu können.</p>
+                    <div class="project-tags">
+                        <span class="skill-tag">Next.js</span>
+                        <span class="skill-tag">Supabase</span>
                     </div>
-                    <div class="project-card" data-stagger="4">
-                        <h3>CPU (Logik-Gates)</h3>
-                        <p>Eine CPU-Simulation in Python — vom Logik-Gate bis zur funktionierenden Recheneinheit.</p>
-                        <div class="project-tags">
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">Hardware</span>
-                        </div>
-                        <a href="https://github.com/leonard-roepcke/CPU" class="project-link" target="_blank" rel="noopener">GitHub →</a>
+                    <a href="https://icworld.vercel.app" class="project-link" target="_blank" rel="noopener">Live Demo →</a>
+                </div>
+                <div class="project-card">
+                    <h3>CPU (Logik-Gates)</h3>
+                    <p>Eine CPU-Simulation in Python — vom Logik-Gate bis zur funktionierenden Recheneinheit.</p>
+                    <div class="project-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Hardware</span>
                     </div>
-                    <div class="project-card" data-stagger="5">
-                        <h3>Enrico's Journey</h3>
-                        <p>Eine Next.js-Website mit Tailwind — Content über JSON/Markdown, gehostet auf Vercel und GitHub Pages.</p>
-                        <div class="project-tags">
-                            <span class="skill-tag">Next.js</span>
-                            <span class="skill-tag">Tailwind</span>
-                        </div>
-                        <a href="https://leonard-roepcke.github.io/enricos-journey/" class="project-link" target="_blank" rel="noopener">Live Demo →</a>
+                    <a href="https://github.com/leonard-roepcke/CPU" class="project-link" target="_blank" rel="noopener">GitHub →</a>
+                </div>
+                <div class="project-card">
+                    <h3>Enrico's Journey</h3>
+                    <p>Eine Next.js-Website mit Tailwind — Content über JSON/Markdown, gehostet auf Vercel und GitHub Pages.</p>
+                    <div class="project-tags">
+                        <span class="skill-tag">Next.js</span>
+                        <span class="skill-tag">Tailwind</span>
                     </div>
+                    <a href="https://leonard-roepcke.github.io/enricos-journey/" class="project-link" target="_blank" rel="noopener">Live Demo →</a>
                 </div>
             </div>
         </section>
 
-        <section class="scene" id="contact" data-index="4">
-            <div class="scene-inner contact-content">
-                <h2><span class="gradient-text">Kontakt</span></h2>
-                <p class="contact-intro">Schreib mir gerne eine E-Mail — ich freue mich über Feedback, Fragen oder Zusammenarbeit.</p>
-                <a href="mailto:leonard@roepcke.me" class="contact-email">leonard@roepcke.me</a>
-                <br>
-                <a href="https://github.com/leonard-roepcke" class="contact-github" target="_blank" rel="noopener">github.com/leonard-roepcke</a>
-            </div>
+        <section id="contact" class="contact-content">
+            <h2><span class="gradient-text">Kontakt</span></h2>
+            <p class="contact-intro">Schreib mir gerne eine E-Mail — ich freue mich über Feedback, Fragen oder Zusammenarbeit.</p>
+            <a href="mailto:leonard@roepcke.me" class="contact-email">leonard@roepcke.me</a>
+            <br>
+            <a href="https://github.com/leonard-roepcke" class="contact-github" target="_blank" rel="noopener">github.com/leonard-roepcke</a>
         </section>
     </main>
 
@@ -762,285 +562,29 @@
     </footer>
 
     <script>
-        const SCENE_COUNT = 5;
-        const FADE_OUT_MS = 280;
-        const STAR_MS = 750;
-        const FADE_IN_MS = 350;
-        const WHEEL_THRESHOLD = 40;
-        const TOUCH_THRESHOLD = 50;
+        const sections = document.querySelectorAll('main section[id]');
+        const navLinks = document.querySelectorAll('nav a[href^="#"]');
 
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        let currentScene = 0;
-        let isTransitioning = false;
-        let wheelAccum = 0;
-        let touchStartY = 0;
-        let touchAccum = 0;
-        let isTouching = false;
-
-        const scenes = document.querySelectorAll('.scene');
-        const navLinks = document.querySelectorAll('nav a[data-scene]');
-        const dots = document.querySelectorAll('.scene-dot');
-        const starTransition = document.getElementById('starTransition');
-        const heroName = document.getElementById('heroName');
-        const heroTagline = document.getElementById('heroTagline');
-        const heroCta = document.getElementById('heroCta');
-        const scrollHint = document.getElementById('scrollHint');
-        const aboutText = document.getElementById('aboutText');
-
-        function clamp(val, min, max) {
-            return Math.min(max, Math.max(min, val));
-        }
-
-        function updateNav(index) {
-            navLinks.forEach(link => {
-                link.classList.toggle('active', parseInt(link.dataset.scene, 10) === index);
-            });
-            dots.forEach(dot => {
-                dot.classList.toggle('active', parseInt(dot.dataset.scene, 10) === index);
-            });
-        }
-
-        function resetSceneAnimations(scene, index) {
-            if (index === 1) {
-                scene.style.transform = 'translateX(-60px)';
-                aboutText.style.opacity = '0';
-            }
-            if (index === 2 || index === 3) {
-                scene.querySelectorAll('[data-stagger]').forEach(el => {
-                    el.style.opacity = '0';
-                    el.style.transform = 'translateY(40px) rotateX(8deg)';
-                });
-            }
-            if (index === 4) {
-                scene.querySelector('.contact-intro').style.opacity = '0';
-                scene.querySelector('.contact-email').style.opacity = '0';
-                scene.querySelector('.contact-email').style.transform = 'scale(0.9)';
-                scene.querySelector('.contact-github').style.opacity = '0';
-            }
-        }
-
-        function playEnterAnimation(index) {
-            const scene = scenes[index];
-
-            if (index === 0) {
-                heroName.style.transform = 'scale(1)';
-                heroTagline.style.opacity = '1';
-                heroCta.style.opacity = '1';
-                scrollHint.style.opacity = '1';
-            }
-
-            if (index === 1) {
-                requestAnimationFrame(() => {
-                    scene.style.transform = 'translateX(0)';
-                    aboutText.style.opacity = '1';
-                });
-                scene.style.transition = 'transform 0.6s ease';
-                aboutText.style.transition = 'opacity 0.6s ease';
-            }
-
-            if (index === 2 || index === 3) {
-                scene.querySelectorAll('[data-stagger]').forEach(el => {
-                    const stagger = parseInt(el.dataset.stagger, 10);
-                    setTimeout(() => {
-                        el.style.opacity = '1';
-                        el.style.transform = 'translateY(0) rotateX(0)';
-                    }, stagger * 90);
-                });
-            }
-
-            if (index === 4) {
-                setTimeout(() => {
-                    scene.querySelector('.contact-intro').style.opacity = '1';
-                    scene.querySelector('.contact-email').style.opacity = '1';
-                    scene.querySelector('.contact-email').style.transform = 'scale(1)';
-                }, 120);
-                setTimeout(() => {
-                    scene.querySelector('.contact-github').style.opacity = '1';
-                }, 280);
-            }
-        }
-
-        function createShootingStars() {
-            starTransition.innerHTML = '';
-            const count = 18;
-            for (let i = 0; i < count; i++) {
-                const star = document.createElement('div');
-                star.className = 'shooting-star';
-                const top = Math.random() * 70;
-                const left = Math.random() * 60 - 20;
-                const width = 60 + Math.random() * 120;
-                const angle = -25 - Math.random() * 25;
-                const duration = 0.55 + Math.random() * 0.45;
-                const delay = Math.random() * 0.35;
-                star.style.top = `${top}%`;
-                star.style.left = `${left}%`;
-                star.style.width = `${width}px`;
-                star.style.setProperty('--angle', `${angle}deg`);
-                star.style.setProperty('--duration', `${duration}s`);
-                star.style.setProperty('--delay', `${delay}s`);
-                starTransition.appendChild(star);
-            }
-        }
-
-        function setActiveScene(index) {
-            scenes.forEach((scene, i) => {
-                scene.classList.toggle('active', i === index);
-            });
-            updateNav(index);
-        }
-
-        function playShootingStars() {
-            createShootingStars();
-            starTransition.classList.add('active');
-            return new Promise(resolve => setTimeout(resolve, STAR_MS));
-        }
-
-        function hideShootingStars() {
-            starTransition.classList.remove('active');
-        }
-
-        async function transitionTo(targetIndex) {
-            if (isTransitioning || targetIndex === currentScene) return;
-            targetIndex = clamp(targetIndex, 0, SCENE_COUNT - 1);
-            isTransitioning = true;
-            wheelAccum = 0;
-            touchAccum = 0;
-
-            const from = currentScene;
-            const leavingHome = from === 0;
-
-            if (leavingHome) {
-                heroName.style.transition = 'transform 0.35s ease';
-                heroTagline.style.transition = 'opacity 0.25s ease';
-                heroCta.style.transition = 'opacity 0.25s ease';
-                heroName.style.transform = 'scale(1.4)';
-                heroTagline.style.opacity = '0';
-                heroCta.style.opacity = '0';
-                scrollHint.style.opacity = '0';
-            }
-
-            scenes[from].classList.remove('active');
-            await new Promise(resolve => setTimeout(resolve, FADE_OUT_MS));
-
-            await playShootingStars();
-
-            currentScene = targetIndex;
-            resetSceneAnimations(scenes[targetIndex], targetIndex);
-            setActiveScene(targetIndex);
-
-            await new Promise(resolve => setTimeout(resolve, FADE_IN_MS));
-            hideShootingStars();
-            playEnterAnimation(targetIndex);
-
-            if (leavingHome) {
-                heroName.style.transition = '';
-            }
-
-            isTransitioning = false;
-        }
-
-        function goToScene(index) {
-            transitionTo(index);
-        }
-
-        function trySceneChange(direction) {
-            const next = currentScene + direction;
-            if (next < 0 || next >= SCENE_COUNT) return;
-            goToScene(next);
-        }
-
-        function canScrollInner(deltaY) {
-            const activeScene = scenes[currentScene];
-            const inner = activeScene?.querySelector('.scene-inner');
-            if (!inner || inner.scrollHeight <= inner.clientHeight + 1) return false;
-            if (deltaY > 0 && inner.scrollTop + inner.clientHeight < inner.scrollHeight - 1) return true;
-            if (deltaY < 0 && inner.scrollTop > 1) return true;
-            return false;
-        }
-
-        if (!reducedMotion) {
-            scenes.forEach((scene, i) => {
-                scene.style.transition = 'opacity 0.35s ease, transform 0.6s ease';
-                if (i !== 0) resetSceneAnimations(scene, i);
-            });
-            aboutText.style.transition = 'opacity 0.6s ease';
-            scenes.forEach(scene => {
-                scene.querySelectorAll('[data-stagger]').forEach(el => {
-                    el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
-                });
-            });
-
-            window.addEventListener('wheel', (e) => {
-                if (isTransitioning) {
-                    e.preventDefault();
-                    return;
-                }
-                if (canScrollInner(e.deltaY)) return;
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const target = document.querySelector(link.getAttribute('href'));
+                if (!target) return;
                 e.preventDefault();
-                wheelAccum += e.deltaY;
-                if (Math.abs(wheelAccum) >= WHEEL_THRESHOLD) {
-                    trySceneChange(wheelAccum > 0 ? 1 : -1);
-                    wheelAccum = 0;
-                }
-            }, { passive: false });
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
 
-            window.addEventListener('touchstart', (e) => {
-                touchStartY = e.touches[0].clientY;
-                touchAccum = 0;
-                isTouching = true;
-            }, { passive: true });
-
-            window.addEventListener('touchmove', (e) => {
-                if (!isTouching || isTransitioning) return;
-                const delta = touchStartY - e.touches[0].clientY;
-                if (canScrollInner(delta)) return;
-                e.preventDefault();
-                touchAccum += delta;
-                touchStartY = e.touches[0].clientY;
-                if (Math.abs(touchAccum) >= TOUCH_THRESHOLD) {
-                    trySceneChange(touchAccum > 0 ? 1 : -1);
-                    touchAccum = 0;
-                }
-            }, { passive: false });
-
-            window.addEventListener('touchend', () => {
-                isTouching = false;
-                touchAccum = 0;
-            }, { passive: true });
-
-            document.querySelectorAll('a[data-scene], .scene-dot').forEach(el => {
-                el.addEventListener('click', (e) => {
-                    if (el.tagName === 'A') e.preventDefault();
-                    goToScene(parseInt(el.dataset.scene, 10));
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                const id = entry.target.id;
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
                 });
             });
+        }, { rootMargin: '-40% 0px -50% 0px' });
 
-            updateNav(0);
-        } else {
-            document.querySelectorAll('a[data-scene]').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const target = document.querySelector(link.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'auto', block: 'start' });
-                    }
-                });
-            });
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.querySelectorAll('[data-stagger]').forEach(el => {
-                            el.style.opacity = 1;
-                            el.style.transform = 'none';
-                        });
-                    }
-                });
-            }, { threshold: 0.2 });
-
-            scenes.forEach(scene => observer.observe(scene));
-        }
+        sections.forEach(section => observer.observe(section));
     </script>
 </body>
 </html>
