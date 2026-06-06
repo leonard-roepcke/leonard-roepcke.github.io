@@ -46,7 +46,7 @@
             background-clip: text;
         }
 
-        .bg-orbs,
+        .bg-grid,
         .scroll-decor {
             position: fixed;
             inset: 0;
@@ -54,44 +54,36 @@
             overflow: hidden;
         }
 
-        .bg-orbs {
+        .bg-grid {
             z-index: -1;
+            background: #0a0a0a;
+        }
+
+        .bg-grid::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(102, 126, 234, 0.055) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.055) 1px, transparent 1px);
+            background-size: 52px 52px;
+            mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.35) 15%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.35) 85%, transparent 100%);
+            -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.35) 15%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.35) 85%, transparent 100%);
+        }
+
+        .bg-grid::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 45% at 50% 0%, rgba(102, 126, 234, 0.09) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 35% at 100% 60%, rgba(118, 75, 162, 0.06) 0%, transparent 55%),
+                radial-gradient(ellipse 45% 30% at 0% 70%, rgba(102, 126, 234, 0.05) 0%, transparent 50%),
+                linear-gradient(180deg, rgba(118, 75, 162, 0.04) 0%, transparent 30%, transparent 70%, rgba(102, 126, 234, 0.03) 100%);
         }
 
         .scroll-decor {
             z-index: 0;
-        }
-
-        .bg-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.35;
-            will-change: transform;
-        }
-
-        .bg-orb:nth-child(1) {
-            width: 420px;
-            height: 420px;
-            background: #667eea;
-            top: -10%;
-            left: -5%;
-        }
-
-        .bg-orb:nth-child(2) {
-            width: 360px;
-            height: 360px;
-            background: #764ba2;
-            bottom: 10%;
-            right: -8%;
-        }
-
-        .bg-orb:nth-child(3) {
-            width: 280px;
-            height: 280px;
-            background: #5a67d8;
-            bottom: 25%;
-            left: -6%;
         }
 
         .decor-shape {
@@ -681,7 +673,6 @@
                 scroll-behavior: auto;
             }
 
-            .bg-orb,
             .decor-shape {
                 transform: none !important;
             }
@@ -689,11 +680,7 @@
     </style>
 </head>
 <body>
-    <div class="bg-orbs" aria-hidden="true">
-        <div class="bg-orb" data-parallax="0.18"></div>
-        <div class="bg-orb" data-parallax="0.32"></div>
-        <div class="bg-orb" data-parallax="0.12"></div>
-    </div>
+    <div class="bg-grid" aria-hidden="true"></div>
 
     <div class="scroll-decor decor-left" aria-hidden="true">
         <div class="decor-shape decor-shape--ring" data-parallax="0.45" data-axis="x" data-direction="-1"></div>
